@@ -1,0 +1,138 @@
+# 银行业审计专业术语对照表
+# 格式：英文术语=中文术语
+
+# 银行业基本术语
+bank audit=银行审计
+banking supervision=银行监管
+capital adequacy=资本充足性
+liquidity risk=流动性风险
+credit risk=信用风险
+market risk=市场风险
+operational risk=操作风险
+interest rate risk=利率风险
+foreign exchange risk=外汇风险
+asset quality=资产质量
+non-performing loan=不良贷款
+loan loss provision=贷款损失准备金
+tier 1 capital=一级资本
+tier 2 capital=二级资本
+risk-weighted assets=风险加权资产
+capital conservation buffer=资本保持缓冲
+countercyclical buffer=逆周期缓冲
+
+# 监管与合规
+basel framework=巴塞尔框架
+basel iii=巴塞尔协议III
+camel rating=驼峰评级系统
+anti-money laundering=反洗钱
+combating the financing of terrorism=打击恐怖融资
+know your customer=了解你的客户
+customer due diligence=客户尽职调查
+suspicious transaction report=可疑交易报告
+compliance risk=合规风险
+regulatory capital=监管资本
+regulatory reporting=监管报告
+stress testing=压力测试
+financial stability board=金融稳定理事会
+systemic risk=系统性风险
+too big to fail=大而不能倒
+
+# 银行产品与业务
+retail banking=零售银行业务
+commercial banking=商业银行业务
+investment banking=投资银行业务
+private banking=私人银行业务
+wealth management=财富管理
+trade finance=贸易融资
+letter of credit=信用证
+syndicated loan=银团贷款
+mortgage loan=抵押贷款
+consumer loan=消费贷款
+credit card=信用卡
+debit card=借记卡
+derivative products=衍生产品
+structured products=结构性产品
+asset-backed securities=资产支持证券
+mortgage-backed securities=抵押贷款支持证券
+
+# 银行会计相关
+loan portfolio=贷款组合
+allowance for loan losses=贷款损失准备金
+interest income=利息收入
+interest expense=利息支出
+net interest margin=净利息差
+fee and commission income=手续费和佣金收入
+trading income=交易收入
+impairment loss=减值损失
+asset and liability management=资产负债管理
+hedge accounting=套期会计
+fair value accounting=公允价值会计
+loan origination fee=贷款发起费
+prepayment penalty=提前还款罚金
+deferred tax asset=递延所得税资产
+
+# 银行内控与IT
+core banking system=核心银行系统
+payment system=支付系统
+real-time gross settlement=实时全额结算
+automated teller machine=自动柜员机
+electronic funds transfer=电子资金转账
+chip and PIN=芯片和密码
+information security=信息安全
+business continuity plan=业务连续性计划
+disaster recovery=灾难恢复
+segregation of duties=职责分离
+dual control=双重控制
+maker-checker principle=制造者-检查者原则
+sensitive transactions=敏感交易
+user access rights=用户访问权限
+privileged access=特权访问
+
+# 银行财务
+cost to income ratio=成本收入比
+return on assets=资产回报率
+return on equity=权益回报率
+net stable funding ratio=净稳定资金比率
+liquidity coverage ratio=流动性覆盖率
+leverage ratio=杠杆率
+loan to deposit ratio=贷存比
+efficiency ratio=效率比率
+net interest spread=净利息差
+yield curve=收益率曲线
+maturity mismatch=期限错配
+duration gap=久期缺口
+economic value of equity=权益经济价值
+dividend payout ratio=股息支付率
+
+# 银行审计方法
+banking regulatory compliance audit=银行监管合规审计
+credit file review=信贷档案审查
+loan portfolio sampling=贷款组合抽样
+branch audit=分行审计
+treasury operations audit=资金业务审计
+IT general controls review=IT一般控制审查
+application controls testing=应用控制测试
+customer complaint analysis=客户投诉分析
+fraud detection procedures=舞弊检测程序
+deposit operations audit=存款业务审计
+credit underwriting audit=信贷承销审计
+interest calculation validation=利息计算验证
+correspondent banking review=代理行业务审查
+fiduciary activities audit=信托活动审计
+foreign exchange operations audit=外汇业务审计
+
+# 风险评估指标
+probability of default=违约概率
+loss given default=违约损失率
+exposure at default=违约风险暴露
+risk-adjusted return on capital=风险调整后资本回报率
+expected loss=预期损失
+value at risk=在险价值
+stress scenario=压力情景
+backtesting=回溯测试
+risk appetite statement=风险偏好声明
+key risk indicators=关键风险指标
+risk control self-assessment=风险控制自我评估
+emerging risks=新兴风险
+tail risk=尾部风险
+correlation risk=相关性风险 

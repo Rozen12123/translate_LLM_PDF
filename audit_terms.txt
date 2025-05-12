@@ -1,0 +1,147 @@
+# 审计报告专业术语对照表
+# 格式：英文术语=中文术语
+
+# 基本审计术语
+audit=审计
+financial audit=财务审计
+compliance audit=合规性审计
+performance audit=绩效审计
+internal audit=内部审计
+external audit=外部审计
+statutory audit=法定审计
+operational audit=运营审计
+forensic audit=法务审计
+information systems audit=信息系统审计
+continuous audit=持续审计
+integrated audit=综合审计
+
+# 审计阶段和过程
+audit planning=审计计划
+risk assessment=风险评估
+materiality=重要性
+sampling=抽样
+substantive testing=实质性测试
+test of controls=控制测试
+compliance testing=合规性测试
+audit evidence=审计证据
+analytical procedures=分析程序
+audit documentation=审计记录
+audit trail=审计追踪
+walkthrough=穿行测试
+audit program=审计方案
+audit procedures=审计程序
+interim audit=期中审计
+year-end audit=年终审计
+audit completion=审计完成
+subsequent events=期后事项
+
+# 审计报告相关
+audit report=审计报告
+audit opinion=审计意见
+qualified opinion=保留意见
+unqualified opinion=无保留意见
+adverse opinion=否定意见
+disclaimer of opinion=无法表示意见
+emphasis of matter=强调事项
+going concern=持续经营
+material misstatement=重大错报
+scope limitation=范围限制
+management letter=管理建议书
+management representation=管理层声明
+auditor's responsibility=审计师责任
+management's responsibility=管理层责任
+
+# 财务报表和账目相关
+financial statements=财务报表
+balance sheet=资产负债表
+income statement=利润表
+statement of cash flows=现金流量表
+statement of changes in equity=所有者权益变动表
+notes to financial statements=财务报表附注
+accounting policies=会计政策
+accounting estimates=会计估计
+fair presentation=公允表达
+true and fair view=真实公允视图
+consolidated financial statements=合并财务报表
+financial position=财务状况
+financial performance=财务业绩
+
+# 内部控制相关
+internal control=内部控制
+control environment=控制环境
+control activities=控制活动
+segregation of duties=职责分离
+information and communication=信息与沟通
+monitoring=监控
+material weakness=重大缺陷
+significant deficiency=重要缺陷
+control deficiency=控制缺陷
+internal control over financial reporting=财务报告内部控制
+entity-level controls=实体层面控制
+process-level controls=流程层面控制
+key controls=关键控制
+compensating controls=补偿性控制
+preventive controls=预防性控制
+detective controls=检测性控制
+corrective controls=纠正性控制
+
+# 风险相关
+audit risk=审计风险
+inherent risk=固有风险
+control risk=控制风险
+detection risk=检查风险
+business risk=业务风险
+fraud risk=舞弊风险
+risk factors=风险因素
+risk response=风险应对
+residual risk=剩余风险
+risk matrix=风险矩阵
+risk appetite=风险偏好
+risk tolerance=风险容忍度
+
+# 舞弊和错误
+fraud=舞弊
+error=错误
+misappropriation of assets=资产侵占
+financial statement fraud=财务报表舞弊
+corruption=贪污腐败
+bribery=贿赂
+collusion=串谋
+override of controls=凌驾于控制之上
+professional skepticism=职业怀疑
+red flags=警示信号
+
+# 监管和标准
+generally accepted auditing standards=公认审计准则
+international standards on auditing=国际审计准则
+public company accounting oversight board=公众公司会计监督委员会
+securities and exchange commission=证券交易委员会
+sarbanes-oxley act=萨班斯-奥克斯利法案
+internal control—integrated framework=内部控制—整合框架
+coso framework=COSO框架
+section 404=404条款
+audit committee=审计委员会
+corporate governance=公司治理
+regulatory compliance=法规遵循
+
+# 审计技术
+data analytics=数据分析
+computer-assisted audit techniques=计算机辅助审计技术
+automated tools and techniques=自动化工具和技术
+data mining=数据挖掘
+continuous auditing=持续审计
+artificial intelligence in audit=审计中的人工智能
+blockchain in audit=审计中的区块链
+big data analytics=大数据分析
+audit software=审计软件
+remote auditing=远程审计
+
+# 专业机构和资格
+certified public accountant=注册会计师
+chartered accountant=特许会计师
+certified internal auditor=注册内部审计师
+certified fraud examiner=注册舞弊审查师
+american institute of certified public accountants=美国注册会计师协会
+institute of internal auditors=内部审计师协会
+association of certified fraud examiners=注册舞弊审查师协会
+international federation of accountants=国际会计师联合会 
