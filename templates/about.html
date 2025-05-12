@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}关于 About{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="text-center mb-0">
+                    <i class="bi bi-info-circle me-2"></i>
+                    关于审计报告翻译工具 About the Audit Report Translator
+                </h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="row mb-4">
+                    <div class="col-12 text-center">
+                        <i class="bi bi-translate display-1 text-primary mb-3"></i>
+                        <h3>专业审计报告翻译解决方案</h3>
+                        <h5 class="text-muted">Professional Audit Report Translation Solution</h5>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <h4>项目概述 Project Overview</h4>
+                    <p>
+                        审计报告翻译工具是一款专业的软件，专为将中文审计报告翻译成英文而设计，同时保持原始格式并确保翻译质量。
+                        本工具解决了传统翻译方法的两大主要挑战：保持文档格式和获得专业、自然的翻译。
+                    </p>
+                    <p>
+                        The Audit Report Translator is a professional tool designed specifically for translating Chinese audit reports into English 
+                        while preserving the original formatting and ensuring translation quality. This tool addresses two major challenges of 
+                        traditional translation methods: maintaining document formatting and obtaining professional, natural-sounding translations.
+                    </p>
+                </div>
+                
+                <div class="mt-4">
+                    <h4>核心功能 Core Features</h4>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="card h-100 bg-light mb-3">
+                                <div class="card-body">
+                                    <h5><i class="bi bi-layout-text-window me-2 text-primary"></i>保持原始格式</h5>
+                                    <p class="small">精确提取和保留PDF中的文本布局、表格、字体样式等格式元素，确保英文版与中文版在视觉上保持一致。</p>
+                                    <h6 class="text-muted">Format Preservation</h6>
+                                    <p class="small text-muted">Precisely extracts and preserves text layout, tables, font styles, and other formatting elements from PDFs, ensuring the English version maintains visual consistency with the Chinese original.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100 bg-light mb-3">
+                                <div class="card-body">
+                                    <h5><i class="bi bi-stars me-2 text-warning"></i>专业术语翻译</h5>
+                                    <p class="small">采用专门为审计、会计和财务领域定制的术语库，确保翻译的专业性和准确性。</p>
+                                    <h6 class="text-muted">Professional Terminology</h6>
+                                    <p class="small text-muted">Uses a terminology database specifically customized for audit, accounting, and finance fields to ensure professionalism and accuracy in translations.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100 bg-light mb-3">
+                                <div class="card-body">
+                                    <h5><i class="bi bi-translate me-2 text-success"></i>高质量翻译</h5>
+                                    <p class="small">使用先进的机器学习翻译模型，结合专业术语替换，生成自然、流畅且没有机器翻译痕迹的英文文本。</p>
+                                    <h6 class="text-muted">High-Quality Translation</h6>
+                                    <p class="small text-muted">Uses advanced machine learning translation models combined with professional terminology replacement to generate natural, fluent English text without machine translation artifacts.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100 bg-light mb-3">
+                                <div class="card-body">
+                                    <h5><i class="bi bi-gear me-2 text-primary"></i>简单易用</h5>
+                                    <p class="small">提供友好的用户界面，只需上传PDF并选择翻译选项，即可获得高质量的英文审计报告。</p>
+                                    <h6 class="text-muted">User-Friendly</h6>
+                                    <p class="small text-muted">Provides a friendly user interface where you simply upload a PDF and select translation options to obtain a high-quality English audit report.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <h4>技术说明 Technical Details</h4>
+                    <p>
+                        本工具结合了多种先进技术，包括PDF文本提取、机器翻译、文本处理和PDF重建等。核心组件包括：
+                    </p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item">
+                            <i class="bi bi-file-earmark-pdf me-2 text-danger"></i>
+                            <strong>PDF文本提取引擎</strong>：使用PDFMiner和PyPDF2精确提取文本和布局信息
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-translate me-2 text-primary"></i>
+                            <strong>翻译引擎</strong>：基于Transformers库的神经机器翻译模型
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-book me-2 text-success"></i>
+                            <strong>术语库系统</strong>：专业术语替换机制，确保专业词汇的准确翻译
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-file-earmark-richtext me-2 text-warning"></i>
+                            <strong>PDF重建引擎</strong>：使用ReportLab和PyPDF2将翻译后的文本重建为保持原始格式的PDF
+                        </li>
+                    </ul>
+                    <p class="text-muted small">
+                        This tool combines various advanced technologies, including PDF text extraction, machine translation, text processing, and PDF reconstruction. Core components include a PDF extraction engine (PDFMiner and PyPDF2), a translation engine (neural machine translation based on the Transformers library), a terminology system (professional term replacement mechanism), and a PDF reconstruction engine (ReportLab and PyPDF2).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

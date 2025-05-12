@@ -1,0 +1,92 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>审计报告翻译工具 | Audit Report Translator</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 20px;
+                background-color: #f5f5f5;
+            }
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                background-color: white;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+            h1 {
+                color: #2c3e50;
+                text-align: center;
+            }
+            .upload-form {
+                margin: 20px 0;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+            .btn {
+                background-color: #3498db;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .btn:hover {
+                background-color: #2980b9;
+            }
+            footer {
+                text-align: center;
+                margin-top: 20px;
+                color: #7f8c8d;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>审计报告翻译工具（演示版）</h1>
+            <h1>Audit Report Translator (Demo)</h1>
+            
+            <div class="upload-form">
+                <h2>上传报告 | Upload Report</h2>
+                <p>请选择要翻译的中文审计报告PDF文件。</p>
+                <p>Please select a Chinese audit report PDF file to translate.</p>
+                
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <div>
+                        <input type="file" id="file" name="file" accept=".pdf" required>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <label for="model_type">翻译模型 | Translation Model:</label>
+                        <select id="model_type" name="model_type">
+                            <option value="standard">标准模型 | Standard Model</option>
+                            <option value="professional">专业模型 | Professional Model</option>
+                            <option value="enhanced">增强模型 | Enhanced Model</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn" style="margin-top: 10px;">
+                        上传并翻译 | Upload and Translate
+                    </button>
+                </form>
+            </div>
+            
+            <div>
+                <h2>演示说明 | Demo Notes</h2>
+                <p>此演示版仅模拟翻译流程，不会执行实际翻译操作。</p>
+                <p>This demo version only simulates the translation process without actual translation.</p>
+            </div>
+            
+            <footer>
+                © 2025 Audit Report Translation Tool
+            </footer>
+        </div>
+    </body>
+    </html>
+    
