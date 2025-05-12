@@ -1,0 +1,106 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>翻译结果 | Translation Result</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 20px;
+                background-color: #f5f5f5;
+            }
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                background-color: white;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+            h1 {
+                color: #2c3e50;
+                text-align: center;
+            }
+            .success-message {
+                background-color: #d4edda;
+                color: #155724;
+                padding: 15px;
+                margin: 20px 0;
+                border-radius: 4px;
+                text-align: center;
+            }
+            .download-btn {
+                display: block;
+                width: 200px;
+                margin: 20px auto;
+                padding: 10px 15px;
+                background-color: #28a745;
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 4px;
+                font-weight: bold;
+            }
+            .download-btn:hover {
+                background-color: #218838;
+            }
+            footer {
+                text-align: center;
+                margin-top: 30px;
+                color: #7f8c8d;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>翻译完成 | Translation Complete</h1>
+            
+            <div class="success-message">
+                <p>您的审计报告已成功翻译！</p>
+                <p>Your audit report has been successfully translated!</p>
+            </div>
+            
+            <a id="downloadLink" class="download-btn" href="">
+                下载翻译结果 | Download Translation
+            </a>
+            
+            <div>
+                <h2>翻译说明 | Notes</h2>
+                <ul>
+                    <li>此演示版本仅提供了样例翻译功能，实际上是将原文件复制了一份</li>
+                    <li>This demo version only provides sample translation by copying the original file</li>
+                    <li>实际翻译功能需要安装完整版</li>
+                    <li>Full translation functionality requires the complete version</li>
+                </ul>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center;">
+                <a href="/" style="color: #3498db; text-decoration: none;">返回首页 | Back to Home</a>
+            </div>
+            
+            <footer>
+                © 2025 Audit Report Translation Tool
+            </footer>
+        </div>
+        
+        <script>
+            // 获取URL参数中的文件名
+            const urlParams = new URLSearchParams(window.location.search);
+            const filename = urlParams.get('file');
+            
+            // 设置下载链接
+            if (filename) {
+                document.getElementById('downloadLink').href = '/download/' + filename;
+            } else {
+                document.getElementById('downloadLink').innerHTML = '文件未找到 | File not found';
+                document.getElementById('downloadLink').href = '#';
+                document.getElementById('downloadLink').style.backgroundColor = '#dc3545';
+            }
+        </script>
+    </body>
+    </html>
+    
