@@ -1,0 +1,69 @@
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+
+WORKDIR /app
+
+# 设置环境变量
+ENV PYTHONUNBUFFERED=1
+
+# 配置清华源
+RUN rm -r /etc/apt/sources.list.d/*
+RUN echo \
+    "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware\n\
+    deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware\n\
+    deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware\n\
+    deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware" \
+    > /etc/apt/sources.list
+
+# 安装系统依赖
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+    libgl1 \
+    libglib2.0-0 \
+    libxext6 \
+    libsm6 \
+    libxrender1 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# 配置pip清华源
+RUN mkdir -p ~/.config/pip && \
+    echo "[global]\n\
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple\n\
+trusted-host = pypi.tuna.tsinghua.edu.cn" > ~/.config/pip/pip.conf
+
+# 安装 uv
+RUN pip install uv -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 复制项目文件
+COPY PDFMathTranslate/pyproject.toml .
+COPY PDFMathTranslate/setup.cfg .
+COPY PDFMathTranslate/pdf2zh ./pdf2zh
+COPY PDFMathTranslate/script ./script
+COPY PDFMathTranslate/test ./test
+COPY PDFMathTranslate/LICENSE .
+COPY PDFMathTranslate/README.md .
+
+# 复制词汇表文件
+COPY audit_terms.json .
+COPY audit_terms.txt .
+COPY banking_terms.txt .
+
+# 安装项目依赖
+RUN uv pip install --system --no-cache -r pyproject.toml \
+    --index-url https://pypi.tuna.tsinghua.edu.cn/simple \
+    --trusted-host pypi.tuna.tsinghua.edu.cn && \
+    uv pip install --system --no-cache . \
+    --index-url https://pypi.tuna.tsinghua.edu.cn/simple \
+    --trusted-host pypi.tuna.tsinghua.edu.cn && \
+    uv pip install --system --no-cache -U \
+    --index-url https://pypi.tuna.tsinghua.edu.cn/simple \
+    --trusted-host pypi.tuna.tsinghua.edu.cn \
+    "babeldoc<0.3.0" "pymupdf<1.25.3" "pdfminer-six==20250416"
+
+# 创建工作目录
+RUN mkdir -p /app/pdf2zh_files /app/uploads
+
+EXPOSE 7860
+
+# 设置启动命令
+CMD ["pdf2zh", "-i"]
