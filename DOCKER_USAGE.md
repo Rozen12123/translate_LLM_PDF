@@ -24,7 +24,34 @@ sudo docker run -d \
   -p 7860:7860 \
   -v $(pwd)/pdf2zh_files:/app/pdf2zh_files \
   -v $(pwd)/uploads:/app/uploads \
+  --restart unless-stopped \
   pdf-translator
+```
+
+如果需要使用非 root 用户(如 pythonuser)运行容器，可以添加 `--user` 参数，但需要设置目录的权限：
+
+```bash
+cd /path/to/translate_LLM_PDF
+sudo usermod -s /usr/sbin/nologin pythonuser
+sudo usermod -d /path/to/translate_LLM_PDF pythonuser
+sudo chown -R pythonuser pdf2zh_files uploads
+
+mkdir -p $(pwd)/cache
+chmod 777 $(pwd)/cache
+mkdir -p $(pwd)/config
+chmod 777 $(pwd)/config
+
+sudo docker run -d \
+  --name pdf-translator \
+  --user $(id -u pythonuser):$(id -g pythonuser) \
+  -p 7860:7860 \
+  -v $(pwd)/pdf2zh_files:/app/pdf2zh_files \
+  -v $(pwd)/uploads:/app/uploads \
+  --restart unless-stopped \
+  -v $(pwd)/config:/.config \
+  -v $(pwd)/cache:/.cache \
+  pdf-translator
+
 ```
 
 如果需要在前台运行并查看输出，可以去掉 `-d` 参数：
@@ -41,9 +68,11 @@ sudo docker run \
 参数说明：
 - `-d`: 在后台运行容器
 - `--name pdf-translator`: 设置容器名称
+- `--user pythonuser`: 指定使用 pythonuser 用户运行容器
 - `-p 7860:7860`: 将容器内的 7860 端口映射到主机的 7860 端口
 - `-v $(pwd)/pdf2zh_files:/app/pdf2zh_files`: 挂载 PDF 输出文件目录
 - `-v $(pwd)/uploads:/app/uploads`: 挂载上传文件目录
+- `--restart unless-stopped`: 容器停止时自动重启
 
 ## 查看容器日志
 
