@@ -11,7 +11,7 @@
 在项目根目录下运行以下命令来构建 Docker 镜像：
 
 ```bash
-docker build -t pdf-translator -f Dockerfile.custom .
+sudo docker build -t pdf-translator -f Dockerfile.custom .
 ```
 
 ## 运行 Docker 容器
@@ -34,7 +34,7 @@ sudo docker run -d \
 cd /path/to/translate_LLM_PDF
 sudo usermod -s /usr/sbin/nologin pythonuser
 sudo usermod -d /path/to/translate_LLM_PDF pythonuser
-sudo chown -R pythonuser pdf2zh_files uploads
+chmod 777  -R pdf2zh_files uploads
 
 mkdir -p $(pwd)/cache
 chmod 777 $(pwd)/cache

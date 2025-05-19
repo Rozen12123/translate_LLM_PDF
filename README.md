@@ -15,7 +15,7 @@
 ### 安装
 
 ```bash
-pip install pdf2zh
+pip install -e ./PDFMathTranslate/ -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 ### 翻译单份审计报告

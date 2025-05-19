@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, jsonify
 from celery import Celery, Task
 from celery.result import AsyncResult
 from pdf2zh import translate_stream
@@ -54,12 +54,32 @@ def translate_task(
     return doc_mono, doc_dual
 
 
+def mask_sensitive_info(config):
+    """对敏感信息进行脱敏处理"""
+    masked = config.copy()
+    for key in masked:
+        if any(sensitive in key.upper() for sensitive in ['API_KEY', 'SECRET', 'PASSWORD', 'TOKEN']):
+            if masked[key]:
+                # 保留前3位和后3位,中间用*号代替
+                value = str(masked[key])
+                if len(value) > 8:
+                    masked[key] = value[:3] + '*' * (len(value)-6) + value[-3:]
+                else:
+                    masked[key] = '******'
+    return masked
+
 @flask_app.route("/v1/translate", methods=["POST"])
 def create_translate_tasks():
     file = request.files["file"]
     stream = file.stream.read()
     print(request.form.get("data"))
     args = json.loads(request.form.get("data"))
+    
+    # 从cookie获取完整配置
+    translator_config = get_translator_config_from_cookie()
+    if translator_config:
+        args["translator_config"] = translator_config
+        
     task = translate_task.delay(stream, args)
     return {"id": task.id}
 
@@ -90,6 +110,16 @@ def get_translate_result(id: str, format: str):
     doc_mono, doc_dual = result.get()
     to_send = doc_mono if format == "mono" else doc_dual
     return send_file(io.BytesIO(to_send), "application/pdf")
+
+
+@flask_app.route("/v1/translator/config/masked", methods=["GET"])
+def get_masked_translator_config():
+    """获取脱敏后的翻译器配置"""
+    config = get_translator_config_from_cookie()
+    if not config:
+        return jsonify({"error": "No configuration found"}), 404
+    
+    return jsonify(mask_sensitive_info(config))
 
 
 if __name__ == "__main__":

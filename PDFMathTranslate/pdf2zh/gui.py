@@ -618,11 +618,18 @@ with gr.Blocks(
                 _envs = []
                 for i in range(4):
                     _envs.append(gr.update(visible=False, value=""))
+                
+                # 尝试从cookie获取脱敏配置
+                masked_config = get_masked_config()
+                
                 for i, env in enumerate(translator.envs.items()):
                     label = env[0]
-                    value = ConfigManager.get_env_by_translatername(
-                        translator, env[0], env[1]
-                    )
+                    
+                        # 获取脱敏后的配置用于显示
+                    value = ""
+                    if masked_config and label in masked_config:
+                        value = masked_config[label]
+                        
                     visible = True
                     if hidden_gradio_details:
                         if (
@@ -631,14 +638,13 @@ with gr.Blocks(
                             and hidden_gradio_details
                         ):
                             visible = False
-                        # Hidden Keys From Gradio
-                        if "API_KEY" in label.upper():
-                            value = "***"  # We use "***" Present Real API_KEY
+        
                     _envs[i] = gr.update(
                         visible=visible,
                         label=label,
                         value=value,
                     )
+                
                 _envs[-1] = gr.update(visible=translator.CustomPrompt)
                 return _envs
 
@@ -886,3 +892,21 @@ def setup_gui(
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     setup_gui()
+
+def get_masked_config():
+    """从本地配置文件中获取并返回脱敏后的配置"""
+    config = {}
+    for service_name, translator in service_map.items():
+        for env_name, _ in translator.envs.items():
+            value = ConfigManager.get_env_by_translatername(translator, env_name, None)
+            if value:  # 只有当值存在时才添加到配置中
+                if any(sensitive in env_name.upper() for sensitive in ['API_KEY', 'SECRET', 'PASSWORD', 'TOKEN']):
+                    # 敏感信息进行脱敏
+                    if len(str(value)) > 8:
+                        config[env_name] = str(value)[:3] + '*' * (len(str(value))-6) + str(value)[-3:]
+                    else:
+                        config[env_name] = '******'
+                else:
+                    # 非敏感信息直接显示
+                    config[env_name] = value
+    return config
