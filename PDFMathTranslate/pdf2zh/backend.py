@@ -1,10 +1,15 @@
-from flask import Flask, request, send_file, jsonify
+from flask import Flask, request, send_file, jsonify, make_response
 from celery import Celery, Task
 from celery.result import AsyncResult
 from pdf2zh import translate_stream
 import tqdm
 import json
 import io
+import secrets
+import sqlite3
+import os
+from pathlib import Path
+from functools import wraps
 from pdf2zh.doclayout import ModelInstance
 from pdf2zh.config import ConfigManager
 
@@ -15,6 +20,58 @@ flask_app.config.from_mapping(
         result_backend=ConfigManager.get("CELERY_RESULT", "redis://127.0.0.1:6379/0"),
     )
 )
+
+# 数据库路径与配置文件在同一目录
+DB_PATH = Path.home() / ".config" / "PDFMathTranslate" / "tasks.db"
+
+def init_db():
+    """初始化数据库"""
+    # 确保目录存在
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    
+    conn = sqlite3.connect(str(DB_PATH))
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS task_ownership
+        (task_id TEXT PRIMARY KEY, user_token TEXT NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
+    ''')
+    conn.commit()
+    conn.close()
+
+def store_task_ownership(task_id: str, user_token: str):
+    """存储任务所有权信息到数据库"""
+    conn = sqlite3.connect(str(DB_PATH))
+    c = conn.cursor()
+    c.execute('INSERT OR REPLACE INTO task_ownership (task_id, user_token) VALUES (?, ?)',
+              (task_id, user_token))
+    conn.commit()
+    conn.close()
+
+def get_task_ownership(task_id: str) -> str:
+    """从数据库获取任务所有权信息"""
+    conn = sqlite3.connect(str(DB_PATH))
+    c = conn.cursor()
+    c.execute('SELECT user_token FROM task_ownership WHERE task_id = ?', (task_id,))
+    result = c.fetchone()
+    conn.close()
+    return result[0] if result else None
+
+def check_task_ownership(task_id):
+    """检查当前用户是否拥有此任务的访问权限"""
+    user_token = request.cookies.get('user_token')
+    if not user_token:
+        return False
+    stored_token = get_task_ownership(task_id)
+    return stored_token and stored_token == user_token
+
+def require_ownership(f):
+    """装饰器：要求用户拥有任务的访问权限"""
+    @wraps(f)
+    def decorated_function(id, *args, **kwargs):
+        if not check_task_ownership(id):
+            return jsonify({"error": "Unauthorized access"}), 403
+        return f(id, *args, **kwargs)
+    return decorated_function
 
 
 def celery_init_app(app: Flask) -> Celery:
@@ -68,6 +125,7 @@ def mask_sensitive_info(config):
                     masked[key] = '******'
     return masked
 
+
 @flask_app.route("/v1/translate", methods=["POST"])
 def create_translate_tasks():
     file = request.files["file"]
@@ -81,10 +139,27 @@ def create_translate_tasks():
         args["translator_config"] = translator_config
         
     task = translate_task.delay(stream, args)
-    return {"id": task.id}
+    
+    # 生成用户token并存储任务所有权
+    user_token = request.cookies.get('user_token')
+    if not user_token:
+        user_token = secrets.token_urlsafe(32)
+    
+    # 存储到数据库
+    store_task_ownership(task.id, user_token)
+    
+    # 创建响应
+    response = jsonify({"id": task.id})
+    
+    # 设置cookie
+    if not request.cookies.get('user_token'):
+        response.set_cookie('user_token', user_token, httponly=True, samesite='Strict')
+    
+    return response
 
 
 @flask_app.route("/v1/translate/<id>", methods=["GET"])
+@require_ownership
 def get_translate_task(id: str):
     result: AsyncResult = celery_app.AsyncResult(id)
     if str(result.state) == "PROGRESS":
@@ -94,6 +169,7 @@ def get_translate_task(id: str):
 
 
 @flask_app.route("/v1/translate/<id>", methods=["DELETE"])
+@require_ownership
 def delete_translate_task(id: str):
     result: AsyncResult = celery_app.AsyncResult(id)
     result.revoke(terminate=True)
@@ -101,6 +177,7 @@ def delete_translate_task(id: str):
 
 
 @flask_app.route("/v1/translate/<id>/<format>")
+@require_ownership
 def get_translate_result(id: str, format: str):
     result = celery_app.AsyncResult(id)
     if not result.ready():
